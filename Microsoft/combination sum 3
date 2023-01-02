@@ -1,0 +1,18 @@
+void solve(vector<vector<int>>&ans,vector<int>&vec,int k,int n,int i){
+        if(vec.size()==k){
+            if(n==0) ans.push_back(vec);
+        return;
+        }
+        for(int p=i;p<=9;p++){
+            vec.push_back(p);
+            solve(ans,vec,k,n-p,p+1);
+            vec.pop_back();
+        }
+    }
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>>ans;
+        
+        vector<int>vec;
+        solve(ans,vec,k,n,1);
+        return ans;
+    }
