@@ -1,1 +1,26 @@
 
+long long solve(long long a,long long b,string op){
+        if(op=="+") return a+b;
+        else if(op=="-") return a-b;
+        else if(op=="*") return a*b;
+        else return a/b;
+    }
+    int evalRPN(vector<string>& tokens) {
+        stack<string>st;
+        
+        for(int i=0;i<tokens.size();i++){
+            if(tokens[i]!="+" && tokens[i]!="-" && tokens[i]!="*" && tokens[i]!="/"){
+                st.push(tokens[i]);
+            }else{
+                long long a=stoll(st.top());
+                st.pop();
+                long long b=stoll(st.top());
+                st.pop();
+                
+                long long c=solve(b,a,tokens[i]);
+                st.push(to_string(c));
+            }
+        }
+        
+        return stoi(st.top());
+    }
