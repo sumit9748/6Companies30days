@@ -1,0 +1,28 @@
+vector<int> largestDivisibleSubset(vector<int>& nums) {
+//it is another part of longest increasing subsequence ,just modification is that i sort the array and store that indices which are diviable by each other and an extra vector 
+//to store the position of the array elements
+        sort(nums.begin(),nums.end());
+        if(nums.size()==1) return nums;
+        vector<int>ans,dp(nums.size()+1,1),prev(nums.size(),-1);
+
+        int last=0,mx=0;
+        for(int i=1;i<nums.size();i++){
+            for(int j=0;j<i;j++){
+                if(nums[i]%nums[j]==0 && dp[i]<dp[j]+1){
+                    dp[i]=dp[j]+1;
+                    prev[i]=j;
+                    if(dp[i]>mx){
+                        mx=dp[i];
+                        last=i;
+                    }
+                    
+                }
+            }
+        }
+        // cout<<mx<<endl;
+        while(last>=0){
+            ans.push_back(nums[last]);
+            last=prev[last];
+        }
+        return ans;
+    }
