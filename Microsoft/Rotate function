@@ -1,0 +1,24 @@
+int maxRotateFunction(vector<int>& nums) {
+//simple brute force approach..
+
+        if(nums.size()==1) return 0;
+        int m=nums.size(),mx=0;
+        for(int i=0;i<m;i++) mx+=(i*nums[i]);
+        int n=m,k=0,p=m;
+
+        m=m-1;
+        while(m!=0){
+            int j=(m+1)%n,sum=(k*nums[m]);
+            k++;
+            while(j!=m){
+                sum+=(k*nums[j]);
+                j=(j+1)%n;
+                k++;
+            }
+            // cout<<sum<<endl;
+            mx=max(mx,sum);
+            m--;
+            k=0;
+        }
+        return mx;
+    }
