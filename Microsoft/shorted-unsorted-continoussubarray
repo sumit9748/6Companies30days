@@ -1,0 +1,32 @@
+long long count=0ll;
+void merge(vector<int>vec,int st,int mid,int en,int d){
+    int i=st,j=mid+1;
+    while(i<=mid && j<=en){
+        if(vec[i]<=(vec[j]+d)){
+            count+=(en-j+1);
+            i++;
+        }else{
+            j++;
+        }
+    }
+    sort(vec.begin()+st,vec.begin()+en+1);
+    return;
+}
+void mergesort(vector<int>vec,int st,int end,int diff){
+    if(st>=end) return;
+    int mid=st+(end-st)/2;
+    mergesort(vec,st,mid,diff);
+    mergesort(vec,mid+1,end,diff);
+
+    merge(vec,st,mid,end,diff);
+}
+    long long numberOfPairs(vector<int>& nums1, vector<int>& nums2, int diff) {
+        int n=nums1.size();
+        vector<int>vec(n);
+
+        for(int i=0;i<nums1.size();i++){
+            vec[i]=nums1[i]-nums2[i];
+        }
+        mergesort(vec,0,n-1,diff);
+        return count;
+    }
