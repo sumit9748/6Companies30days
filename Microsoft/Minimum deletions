@@ -1,0 +1,32 @@
+int minOperations(vector<int>& nums, vector<int>& pre) {
+        unordered_map<int,int>mp;
+        priority_queue<int,vector<int>,greater<int>>minh;
+        for(auto it:nums){
+            if(mp.find(it)==mp.end()){
+                minh.push(it);
+            }
+            mp[it]++;
+        }
+
+        int count=0;
+        while(!minh.empty()){
+            int m=minh.top();
+            minh.pop();
+            bool flg=false;
+            for(int i=0;i<pre.size();i++){
+                if(pre[i]%m!=0){
+                    flg=true;
+                    break;
+                }
+            }
+            if(flg==true) count+=mp[m];
+            if(flg==false) return count;
+        }
+        return -1;
+
+        //2->3
+        //3->2
+        //4->1
+        //5->2
+        //6->
+    }
